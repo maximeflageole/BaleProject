@@ -319,7 +319,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a122363534a2ea46ab4699993416339, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_cooldown: 3
+  m_data: {fileID: 11400000, guid: 4bd15e34d14b49846b9b7ea1df264e2b, type: 2}
+  m_abilityImage: {fileID: 101492992582990746}
   m_cooldownImage: {fileID: 142564401}
 --- !u!1 &101492992970283378
 GameObject:

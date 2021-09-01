@@ -4,12 +4,21 @@ using UnityEngine.UI;
 public class AbilityButton : MonoBehaviour
 {
     [SerializeField]
-    protected float m_cooldown = 3.0f;
+    protected AbilityData m_data;
+
     protected float m_currentCooldown;
     protected bool m_inCooldown;
 
+
+    [SerializeField]
+    protected Image m_abilityImage;
     [SerializeField]
     protected Image m_cooldownImage;
+
+    void Start()
+    {
+        m_abilityImage.sprite = m_data.Sprite;
+    }
 
     public void OnTryCast()
     {
@@ -22,7 +31,7 @@ public class AbilityButton : MonoBehaviour
     private void Cast()
     {
         m_inCooldown = true;
-        m_currentCooldown = m_cooldown;
+        m_currentCooldown = m_data.Cooldown;
     }
 
     // Update is called once per frame
@@ -37,6 +46,6 @@ public class AbilityButton : MonoBehaviour
                 m_currentCooldown = Mathf.Max(m_currentCooldown, 0.0f);
             }
         }
-        m_cooldownImage.fillAmount = m_currentCooldown / m_cooldown;
+        m_cooldownImage.fillAmount = m_currentCooldown / m_data.Cooldown;
     }
 }
