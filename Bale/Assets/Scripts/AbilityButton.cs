@@ -9,7 +9,7 @@ public class AbilityButton : MonoBehaviour
 
     protected float m_currentCooldown;
     protected bool m_inCooldown;
-    protected string m_keyboardShortcut;
+    protected string m_keyboardShortcut = "2";
 
     [SerializeField]
     protected TextMeshProUGUI m_tmproShortcut;

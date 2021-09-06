@@ -3,17 +3,14 @@ using UnityEngine;
 
 public class BaseCharacter : MonoBehaviour
 {
+    [SerializeField]
     protected ContainerComponent m_lifeComponent;
+    [SerializeField]
+    protected ContainerComponent m_manaComponent;
     [SerializeField]
     protected List<AbilityData> m_abilitiesList = new List<AbilityData>();
     [SerializeField]
     protected EquippedAbilities m_equippedAbilities;
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-        m_lifeComponent = GetComponent<ContainerComponent>();
-    }
 
     private void Start()
     {
