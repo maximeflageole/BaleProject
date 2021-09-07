@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: TestAbility 2
   m_EditorClassIdentifier: 
   AbilityType: 2
+  ManaCost: 15
   Sprite: {fileID: 21300000, guid: 54198f1c138098b4196de35c82b3addb, type: 3}
   Cooldown: 8
+  CastingTime: 2

@@ -35,6 +35,7 @@ public class BaseCharacter : MonoBehaviour
         {
             return;
         }
+        m_manaComponent.RemoveResource(abilityButton.Data.ManaCost);
         IsCasting = true;
         abilityButton.Cast();
         m_currentAbilityCast = abilityButton;
@@ -43,7 +44,7 @@ public class BaseCharacter : MonoBehaviour
 
     protected bool CanCast(AbilityButton ability)
     {
-        return !ability.InCooldown && !IsCasting;
+        return !ability.InCooldown && !IsCasting && m_manaComponent.CurrentValue >= ability.Data.ManaCost;
     }
 
     public void OnEndCast()

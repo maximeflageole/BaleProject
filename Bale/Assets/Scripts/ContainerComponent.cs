@@ -4,8 +4,8 @@ public class ContainerComponent : MonoBehaviour
 {
     [SerializeField]
     protected float m_maxValue = 100.0f;
-    [SerializeField]
-    protected float m_currentValue = 100.0f;
+    [field: SerializeField]
+    public float CurrentValue { get; protected set; } = 100.0f;
     [SerializeField]
     protected float m_regenPer10 = 10.0f;
     [SerializeField]
@@ -14,8 +14,14 @@ public class ContainerComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_containerUI?.UpdateUI(m_currentValue, m_maxValue);
-        m_currentValue += m_regenPer10 * Time.deltaTime * 0.1f;
-        m_currentValue = Mathf.Clamp(m_currentValue, 0.0f, m_maxValue);
+        m_containerUI?.UpdateUI(CurrentValue, m_maxValue);
+        CurrentValue += m_regenPer10 * Time.deltaTime * 0.1f;
+        CurrentValue = Mathf.Clamp(CurrentValue, 0.0f, m_maxValue);
+    }
+
+    public void RemoveResource(float amount)
+    {
+        CurrentValue -= amount;
+        CurrentValue = Mathf.Clamp(CurrentValue, 0.0f, m_maxValue);
     }
 }

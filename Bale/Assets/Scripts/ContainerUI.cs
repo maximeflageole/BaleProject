@@ -12,7 +12,8 @@ public class ContainerUI : MonoBehaviour
     public virtual void UpdateUI(float currentValue, float maxValue)
     {
         m_uiImage.fillAmount = currentValue / maxValue;
+        var roundedDownValue = Mathf.FloorToInt(currentValue);
         if (m_containerText != null)
-            m_containerText.text = currentValue.ToString("0") + " / " + maxValue.ToString("0");
+            m_containerText.text = roundedDownValue.ToString() + " / " + maxValue.ToString("0");
     }
 }
