@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EquippedAbilities : MonoBehaviour
 {
+    [SerializeField]
+    protected BaseCharacter m_owner;
     protected List<AbilityButton> m_abilitiesButtons = new List<AbilityButton>();
     [SerializeField]
     protected List<string> m_buttonsShortcuts = new List<string>();
@@ -15,7 +17,7 @@ public class EquippedAbilities : MonoBehaviour
         m_abilitiesButtons = abilitiesButtons.ToList();
         for (var i = 0; i < m_abilitiesButtons.Count; i++)
         {
-            m_abilitiesButtons[i].InstantiateButtonShortcut(m_buttonsShortcuts[i]);
+            m_abilitiesButtons[i].InstantiateButtonShortcut(m_buttonsShortcuts[i], m_owner);
         }
     }
 

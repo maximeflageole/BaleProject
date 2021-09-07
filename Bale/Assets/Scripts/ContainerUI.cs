@@ -9,7 +9,7 @@ public class ContainerUI : MonoBehaviour
     [SerializeField]
     protected TextMeshProUGUI m_containerText;
 
-    public void UpdateUI(float currentValue, float maxValue)
+    public virtual void UpdateUI(float currentValue, float maxValue)
     {
         m_uiImage.fillAmount = currentValue / maxValue;
         if (m_containerText != null)

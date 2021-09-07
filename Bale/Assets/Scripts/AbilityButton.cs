@@ -4,11 +4,14 @@ using UnityEngine.UI;
 
 public class AbilityButton : MonoBehaviour
 {
-    [SerializeField]
-    protected AbilityData m_data;
+    protected BaseCharacter m_owner;
+    [field:SerializeField]
+    public AbilityData Data { get; protected set; }
 
     protected float m_currentCooldown;
-    protected bool m_inCooldown;
+    public float CurrentCast { get; protected set; }
+    public bool InCooldown { get; protected set; }
+    public bool IsCasting { get; protected set; }
     protected string m_keyboardShortcut = "2";
 
     [SerializeField]
@@ -20,54 +23,67 @@ public class AbilityButton : MonoBehaviour
 
     void Awake()
     {
-        m_abilityImage.sprite = m_data.Sprite;
+        m_abilityImage.sprite = Data.Sprite;
     }
 
     public void SetAbilityData(AbilityData data)
     {
-        m_data = data;
-        m_currentCooldown = m_data.Cooldown;
-        m_inCooldown = true;
-        m_abilityImage.sprite = m_data.Sprite;
+        Data = data;
+        m_currentCooldown = Data.Cooldown;
+        InCooldown = true;
+        m_abilityImage.sprite = Data.Sprite;
     }
 
     public void OnTryCast()
     {
-        if (!m_inCooldown)
+        if (!InCooldown)
         {
-            Cast();
+            m_owner.OnTryCast(this);
         }
     }
 
-    private void Cast()
+    public void Cast()
     {
-        m_inCooldown = true;
-        m_currentCooldown = m_data.Cooldown;
+        IsCasting = true;
+        CurrentCast = 0.0f;
+        InCooldown = true;
+        m_currentCooldown = Data.Cooldown;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (m_inCooldown)
+        if (IsCasting)
+        {
+            CurrentCast += Time.deltaTime;
+            if (CurrentCast >= Data.CastingTime)
+            {
+                IsCasting = false;
+                CurrentCast = 0.0f;
+                m_owner.OnEndCast();
+            }
+        }
+        else if (InCooldown)
         {
             m_currentCooldown -= Time.deltaTime;
             if (m_currentCooldown <= 0.0f)
             {
-                m_inCooldown = false;
+                InCooldown = false;
                 m_currentCooldown = Mathf.Max(m_currentCooldown, 0.0f);
             }
         }
-        m_cooldownImage.fillAmount = m_currentCooldown / m_data.Cooldown;
+        m_cooldownImage.fillAmount = m_currentCooldown / Data.Cooldown;
 
         if (Input.GetKeyDown(m_keyboardShortcut))
         {
-            OnTryCast();
+            m_owner.OnTryCast(this);
         }
     }
 
-    public void InstantiateButtonShortcut(string keyname)
+    public void InstantiateButtonShortcut(string keyname, BaseCharacter owner)
     {
         m_keyboardShortcut = keyname;
         m_tmproShortcut.text = keyname;
+        m_owner = owner;
     }
 }
