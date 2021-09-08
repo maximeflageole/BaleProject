@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ContainerComponent : MonoBehaviour
@@ -11,17 +12,28 @@ public class ContainerComponent : MonoBehaviour
     [SerializeField]
     protected ContainerUI m_containerUI;
 
+    public Action m_resourceEmptyCallback;
+
     // Update is called once per frame
     void Update()
     {
         m_containerUI?.UpdateUI(CurrentValue, m_maxValue);
-        CurrentValue += m_regenPer10 * Time.deltaTime * 0.1f;
-        CurrentValue = Mathf.Clamp(CurrentValue, 0.0f, m_maxValue);
+        GainResource(m_regenPer10 * Time.deltaTime * 0.1f);
     }
 
     public void RemoveResource(float amount)
     {
         CurrentValue -= amount;
+        if (CurrentValue <= 0.0f)
+        {
+            m_resourceEmptyCallback?.Invoke();
+        }
+        CurrentValue = Mathf.Clamp(CurrentValue, 0.0f, m_maxValue);
+    }
+
+    public void GainResource(float amount)
+    {
+        CurrentValue += amount;
         CurrentValue = Mathf.Clamp(CurrentValue, 0.0f, m_maxValue);
     }
 }

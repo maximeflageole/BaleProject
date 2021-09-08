@@ -42,7 +42,7 @@ public class AbilityButton : MonoBehaviour
         }
     }
 
-    public void Cast()
+    public void BeginCast()
     {
         IsCasting = true;
         CurrentCast = 0.0f;

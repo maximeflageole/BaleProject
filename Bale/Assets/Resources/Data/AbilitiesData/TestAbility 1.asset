@@ -17,3 +17,4 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: 4b742139b25500d4d9416860b1896640, type: 3}
   Cooldown: 4
   CastingTime: 1
+  AbilityEffects: []

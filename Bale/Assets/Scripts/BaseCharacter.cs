@@ -18,6 +18,7 @@ public class BaseCharacter : MonoBehaviour
 
     private void Start()
     {
+        m_lifeComponent.m_resourceEmptyCallback += OnHealthEmpty;
         m_equippedAbilities?.InstantiateAbilities(m_abilitiesList);
     }
 
@@ -37,7 +38,7 @@ public class BaseCharacter : MonoBehaviour
         }
         m_manaComponent.RemoveResource(abilityButton.Data.ManaCost);
         IsCasting = true;
-        abilityButton.Cast();
+        abilityButton.BeginCast();
         m_currentAbilityCast = abilityButton;
         m_castingBar.OnBeginCast(abilityButton.Data.AbilityType.ToString(), abilityButton.Data.Sprite);
     }
@@ -49,8 +50,25 @@ public class BaseCharacter : MonoBehaviour
 
     public void OnEndCast()
     {
+        AbilitySystem.CastAbility(this, m_currentAbilityCast.Data);
+
         IsCasting = false;
         m_currentAbilityCast = null;
         m_castingBar.OnEndCast();
+    }
+
+    public void ReceiveDamage(BaseCharacter damageSource, int amount)
+    {
+        m_lifeComponent.RemoveResource(amount);
+    }
+
+    public void HealDamage(int amount)
+    {
+        m_lifeComponent.GainResource(amount);
+    }
+
+    protected void OnHealthEmpty()
+    {
+        Debug.Log("Game won!!");
     }
 }

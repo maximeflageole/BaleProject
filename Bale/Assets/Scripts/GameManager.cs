@@ -21,9 +21,12 @@ public class GameManager : MonoBehaviour
         Destroy(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    public BaseCharacter GetFacingEnemy(BaseCharacter character)
     {
-        
+        if (character == m_playerCharacter)
+        {
+            return m_enemy;
+        }
+        return m_playerCharacter;
     }
 }

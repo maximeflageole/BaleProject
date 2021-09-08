@@ -1707,6 +1707,10 @@ PrefabInstance:
       propertyPath: m_equippedAbilities
       value: 
       objectReference: {fileID: 1093952565}
+    - target: {fileID: 1377039935059788258, guid: ca9ea12dfbb31e74ebfd59c0a076e1f6, type: 3}
+      propertyPath: m_abilitiesList.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: e4dd2a17b3c6da449b96152e76299623, type: 2}
     - target: {fileID: 6939022764804920893, guid: ca9ea12dfbb31e74ebfd59c0a076e1f6, type: 3}
       propertyPath: m_Name
       value: Character
