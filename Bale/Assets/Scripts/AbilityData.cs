@@ -18,5 +18,9 @@ public enum EAbility
     Test2,
     Test3,
     InstantKill,
+    SelfDamage,
+    SelfHeal,
+    HealEveryone,
+    Suicide,
     Count
 }

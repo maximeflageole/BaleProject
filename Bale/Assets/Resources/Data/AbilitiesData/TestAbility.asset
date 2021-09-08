@@ -19,4 +19,5 @@ MonoBehaviour:
   CastingTime: 0.5
   AbilityEffects:
   - Effect: 0
+    Targets: 1
     Magnitude: 15

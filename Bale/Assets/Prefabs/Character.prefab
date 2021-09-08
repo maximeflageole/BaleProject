@@ -918,11 +918,11 @@ MonoBehaviour:
   m_abilitiesList:
   - {fileID: 11400000, guid: 4bd15e34d14b49846b9b7ea1df264e2b, type: 2}
   - {fileID: 11400000, guid: 4bd15e34d14b49846b9b7ea1df264e2b, type: 2}
-  - {fileID: 11400000, guid: 4bd15e34d14b49846b9b7ea1df264e2b, type: 2}
-  - {fileID: 11400000, guid: 4bd15e34d14b49846b9b7ea1df264e2b, type: 2}
+  - {fileID: 11400000, guid: 179d746a5a6f1ad4aa66f09b2f28fada, type: 2}
+  - {fileID: 11400000, guid: e680fbdf0a9243b46865b1a42149ad71, type: 2}
+  - {fileID: 11400000, guid: 3a398e8ebd3a5db4da5c9a2de4955cf1, type: 2}
   - {fileID: 11400000, guid: fed11cb4123637848a45b5c19868acf5, type: 2}
-  - {fileID: 11400000, guid: fed11cb4123637848a45b5c19868acf5, type: 2}
-  - {fileID: 11400000, guid: 4bd15e34d14b49846b9b7ea1df264e2b, type: 2}
+  - {fileID: 11400000, guid: e4dd2a17b3c6da449b96152e76299623, type: 2}
   - {fileID: 11400000, guid: 0f5191cee5227004585818db86dc1d6c, type: 2}
   m_equippedAbilities: {fileID: 0}
 --- !u!114 &6939022764804921026

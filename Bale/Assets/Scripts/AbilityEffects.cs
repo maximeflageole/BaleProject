@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class AbilitySystem
 {
     public static void CastAbility(BaseCharacter castingCharacter, AbilityData data)
@@ -10,13 +12,15 @@ public class AbilitySystem
 
     public static void CastEffect(BaseCharacter castingCharacter, SAbilityEffect effect)
     {
+        var targetList = GameManager._Instance.GetAbilityEffectTarget(castingCharacter, effect);
+
         switch (effect.Effect)
         {
             case EAbilityEffect.Damage:
-                AbilitySystem.DamageCharacter(castingCharacter, GameManager._Instance.GetFacingEnemy(castingCharacter), effect.Magnitude);
+                AbilitySystem.DamageCharacters(castingCharacter, targetList, effect.Magnitude);
                 break;
             case EAbilityEffect.Heal:
-                AbilitySystem.HealCharacter(castingCharacter, effect.Magnitude);
+                AbilitySystem.HealCharacters(targetList, effect.Magnitude);
                 break;
             case EAbilityEffect.RemoveMana:
                 break;
@@ -25,14 +29,22 @@ public class AbilitySystem
         }
     }
 
-    public static void DamageCharacter(BaseCharacter damagingCharacter, BaseCharacter victimCharacter, int amount)
+    public static void DamageCharacters(BaseCharacter damagingCharacter, List<BaseCharacter> targets, int amount)
     {
-        victimCharacter.ReceiveDamage(damagingCharacter, amount);
+        if (targets.Count == 0)
+            return;
+        foreach (var victim in targets)
+        {
+            victim.ReceiveDamage(damagingCharacter, amount);
+        }
     }
 
-    public static void HealCharacter(BaseCharacter character, int amount)
+    public static void HealCharacters(List<BaseCharacter> targets, int amount)
     {
-        character.HealDamage(amount);
+        foreach (var character in targets)
+        {
+            character.HealDamage(amount);
+        }
     }
 }
 
@@ -40,6 +52,7 @@ public class AbilitySystem
 public struct SAbilityEffect
 {
     public EAbilityEffect Effect;
+    public EAbilityTarget Targets;
     public int Magnitude;
 }
 
@@ -49,5 +62,17 @@ public enum EAbilityEffect
     Heal,
     RemoveMana,
     GainMana,
+    Count
+}
+
+public enum EAbilityTarget
+{
+    Self,
+    Enemy,
+    AllEnemies,
+    Ally,
+    AllyOrSelf,
+    Everyone,
+    EveryoneButSelf,
     Count
 }

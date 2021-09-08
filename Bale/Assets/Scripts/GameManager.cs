@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -28,5 +29,24 @@ public class GameManager : MonoBehaviour
             return m_enemy;
         }
         return m_playerCharacter;
+    }
+
+    public List<BaseCharacter> GetAbilityEffectTarget(BaseCharacter castingCharacter, SAbilityEffect effect)
+    {
+        var characters = new List<BaseCharacter>();
+        switch (effect.Targets)
+        {
+            case EAbilityTarget.Self:
+                characters.Add(castingCharacter);
+                break;
+            case EAbilityTarget.Enemy:
+                characters.Add(GetFacingEnemy(castingCharacter));
+                break;
+            case EAbilityTarget.Everyone:
+                characters.Add(castingCharacter);
+                characters.Add(GetFacingEnemy(castingCharacter));
+                break;
+        }
+        return characters;
     }
 }

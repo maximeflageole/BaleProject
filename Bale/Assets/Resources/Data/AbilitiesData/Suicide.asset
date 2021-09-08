@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e6304d8fbdf8494dba97a6d0f38b4e9, type: 3}
-  m_Name: InstantKill
+  m_Name: Suicide
   m_EditorClassIdentifier: 
-  AbilityType: 3
+  AbilityType: 7
   ManaCost: 1
-  Sprite: {fileID: 21300000, guid: 1c615e2a438221d44a2d50bc88c5f698, type: 3}
+  Sprite: {fileID: 21300000, guid: 9e2f7ee9eaf2d474ab1dd381a9675cdb, type: 3}
   Cooldown: 1
-  CastingTime: 3
+  CastingTime: 0.5
   AbilityEffects:
   - Effect: 0
-    Targets: 1
+    Targets: 0
     Magnitude: 1000
