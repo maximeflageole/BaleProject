@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e6304d8fbdf8494dba97a6d0f38b4e9, type: 3}
   m_Name: TestAbility 1
   m_EditorClassIdentifier: 
-  AbilityType: 1
+  Ability: 1
+  AbilityType: 0
   ManaCost: 10
   Sprite: {fileID: 21300000, guid: 4b742139b25500d4d9416860b1896640, type: 3}
   Cooldown: 4

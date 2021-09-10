@@ -28,7 +28,9 @@ public class EquippedAbilities : MonoBehaviour
 
         for (var i = 0; i < m_abilitiesButtons.Count || i < abilitiesData.Count; i++)
         {
-            m_abilitiesButtons[i].SetAbilityData(abilitiesData[i]);
+            var abilityData = abilitiesData[i];
+            m_abilitiesButtons[i].SetAbilityData(abilityData);
+            m_owner.OnEquipAbility(abilityData);
         }
     }
 }

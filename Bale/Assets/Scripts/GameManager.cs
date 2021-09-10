@@ -4,6 +4,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager _Instance;
+    public const float TICK_RATE = 0.25f;
+    public static float CURRENT_TICK = 0.0f;
 
     [SerializeField]
     private BaseCharacter m_playerCharacter;
@@ -20,6 +22,21 @@ public class GameManager : MonoBehaviour
         }
 
         Destroy(gameObject);
+    }
+
+    private void Update()
+    {
+        CURRENT_TICK += Time.deltaTime;
+        if (CURRENT_TICK >= TICK_RATE)
+        {
+            CURRENT_TICK %= TICK_RATE;
+            OnTickEvent();
+        }
+    }
+
+    private void OnTickEvent()
+    {
+        m_playerCharacter.OnTickEvent();
     }
 
     public BaseCharacter GetFacingEnemy(BaseCharacter character)

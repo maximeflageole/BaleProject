@@ -4,7 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AbilityData", menuName = "ScriptableObjects/AbilityData")]
 public class AbilityData : ScriptableObject
 {
-    public EAbility AbilityType = EAbility.Count;
+    public EAbility Ability = EAbility.Count;
+    public EAbilityType AbilityType = EAbilityType.Active;
     public int ManaCost = 5;
     public Sprite Sprite;
     public float Cooldown = 10.0f;
@@ -22,5 +23,15 @@ public enum EAbility
     SelfHeal,
     HealEveryone,
     Suicide,
+    ManaSignet,
+    HealthSignet,
+    Count
+}
+
+public enum EAbilityType
+{
+    Active,
+    Passive,
+    Toggle,
     Count
 }

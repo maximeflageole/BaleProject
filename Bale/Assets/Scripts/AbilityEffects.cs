@@ -54,6 +54,7 @@ public struct SAbilityEffect
     public EAbilityEffect Effect;
     public EAbilityTarget Targets;
     public int Magnitude;
+    public float Duration;
 }
 
 public enum EAbilityEffect
@@ -62,6 +63,8 @@ public enum EAbilityEffect
     Heal,
     RemoveMana,
     GainMana,
+    ManaRegenBuff,
+    HealthRegenBuff,
     Count
 }
 

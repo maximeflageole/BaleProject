@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e6304d8fbdf8494dba97a6d0f38b4e9, type: 3}
   m_Name: Suicide
   m_EditorClassIdentifier: 
-  AbilityType: 7
+  Ability: 7
+  AbilityType: 0
   ManaCost: 1
   Sprite: {fileID: 21300000, guid: 9e2f7ee9eaf2d474ab1dd381a9675cdb, type: 3}
   Cooldown: 1
@@ -21,3 +22,4 @@ MonoBehaviour:
   - Effect: 0
     Targets: 0
     Magnitude: 1000
+    Duration: 0

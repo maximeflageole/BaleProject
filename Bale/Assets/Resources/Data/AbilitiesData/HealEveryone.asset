@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e6304d8fbdf8494dba97a6d0f38b4e9, type: 3}
   m_Name: HealEveryone
   m_EditorClassIdentifier: 
-  AbilityType: 6
+  Ability: 6
+  AbilityType: 0
   ManaCost: 10
   Sprite: {fileID: 21300000, guid: edafbaff0c6d1eb49af3cc8539769a0f, type: 3}
   Cooldown: 5
@@ -21,3 +22,4 @@ MonoBehaviour:
   - Effect: 1
     Targets: 5
     Magnitude: 30
+    Duration: 0

@@ -15,6 +15,10 @@ public class BaseCharacter : MonoBehaviour
     [SerializeField]
     protected EquippedAbilities m_equippedAbilities;
     protected AbilityButton m_currentAbilityCast;
+    [SerializeField]
+    protected Dictionary<AbilityData, float> m_buffsList = new Dictionary<AbilityData, float>();
+    [SerializeField]
+    protected Dictionary<AbilityData, float> m_debuffsList = new Dictionary<AbilityData, float>();
 
     private void Start()
     {
@@ -45,7 +49,7 @@ public class BaseCharacter : MonoBehaviour
 
     protected bool CanCast(AbilityButton ability)
     {
-        return !ability.InCooldown && !IsCasting && m_manaComponent.CurrentValue >= ability.Data.ManaCost;
+        return !ability.InCooldown && !IsCasting && m_manaComponent.CurrentValue >= ability.Data.ManaCost && ability.Data.AbilityType == EAbilityType.Active;
     }
 
     public void OnEndCast()
@@ -62,13 +66,81 @@ public class BaseCharacter : MonoBehaviour
         m_lifeComponent.RemoveResource(amount);
     }
 
-    public void HealDamage(int amount)
+    public void HealDamage(float amount)
     {
         m_lifeComponent.GainResource(amount);
+    }
+
+    public void GainMana(float amount)
+    {
+        m_manaComponent.GainResource(amount);
     }
 
     protected void OnHealthEmpty()
     {
         Debug.Log("Game won!!");
+    }
+
+    public void OnEquipAbility(AbilityData abilityData)
+    {
+        if (abilityData.AbilityType == EAbilityType.Passive)
+        {
+            m_buffsList.Add(abilityData, -1.0f);
+        }
+    }
+
+    public void OnUnequipAbility(AbilityData abilityData)
+    {
+        if (m_buffsList.ContainsKey(abilityData))
+        {
+            m_buffsList.Remove(abilityData);
+        }
+    }
+
+    public void OnTickEvent()
+    {
+        foreach (var buff in m_buffsList)
+        {
+            if (buff.Key.AbilityType == EAbilityType.Passive)
+            {
+                ApplyOnTickAbility(buff.Key);
+            }
+            else
+            {
+                //TODO: buff.Value -= GameManager.TICK_RATE;
+            }
+        }
+        foreach (var debuff in m_debuffsList)
+        {
+            if (debuff.Key.AbilityType == EAbilityType.Passive)
+            {
+                ApplyOnTickAbility(debuff.Key);
+            }
+            else
+            {
+                //TODO: buff.Value -= GameManager.TICK_RATE;
+            }
+        }
+    }
+
+    protected void ApplyOnTickAbility(AbilityData abilityData)
+    {
+        foreach (var effect in abilityData.AbilityEffects)
+        {
+            ApplyOnTickEffect(effect);
+        }
+    }
+
+    protected void ApplyOnTickEffect(SAbilityEffect effect)
+    {
+        switch (effect.Effect)
+        {
+            case EAbilityEffect.HealthRegenBuff:
+                HealDamage(effect.Magnitude * GameManager.TICK_RATE);
+                break;
+            case EAbilityEffect.ManaRegenBuff:
+                GainMana(effect.Magnitude * GameManager.TICK_RATE);
+                break;
+        }
     }
 }

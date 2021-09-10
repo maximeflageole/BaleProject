@@ -21,13 +21,12 @@ public class AbilityButton : MonoBehaviour
     [SerializeField]
     protected Image m_cooldownImage;
 
-    void Awake()
-    {
-        m_abilityImage.sprite = Data.Sprite;
-    }
-
     public void SetAbilityData(AbilityData data)
     {
+        if (Data != null)
+        {
+            m_owner.OnUnequipAbility(Data);
+        }
         Data = data;
         m_currentCooldown = Data.Cooldown;
         InCooldown = true;
@@ -72,7 +71,14 @@ public class AbilityButton : MonoBehaviour
                 m_currentCooldown = Mathf.Max(m_currentCooldown, 0.0f);
             }
         }
-        m_cooldownImage.fillAmount = m_currentCooldown / Data.Cooldown;
+        if (Data.AbilityType == EAbilityType.Passive)
+        {
+            m_cooldownImage.fillAmount = 0.0f;
+        }
+        else
+        {
+            m_cooldownImage.fillAmount = m_currentCooldown / Data.Cooldown;
+        }
 
         if (Input.GetKeyDown(m_keyboardShortcut))
         {

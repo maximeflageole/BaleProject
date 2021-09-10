@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e6304d8fbdf8494dba97a6d0f38b4e9, type: 3}
-  m_Name: TestAbility 2
+  m_Name: HealthSignet
   m_EditorClassIdentifier: 
-  Ability: 2
-  AbilityType: 0
-  ManaCost: 15
-  Sprite: {fileID: 21300000, guid: 54198f1c138098b4196de35c82b3addb, type: 3}
-  Cooldown: 8
-  CastingTime: 2
+  Ability: 9
+  AbilityType: 1
+  ManaCost: 0
+  Sprite: {fileID: 21300000, guid: a5b8a1f0c8d7d7749bbe0c9f157c6699, type: 3}
+  Cooldown: 0
+  CastingTime: 0
   AbilityEffects:
-  - Effect: 0
-    Targets: 1
-    Magnitude: 50
+  - Effect: 5
+    Targets: 0
+    Magnitude: 5
     Duration: 0
