@@ -19,6 +19,10 @@ public class BaseCharacter : MonoBehaviour
     protected Dictionary<AbilityData, float> m_buffsList = new Dictionary<AbilityData, float>();
     [SerializeField]
     protected Dictionary<AbilityData, float> m_debuffsList = new Dictionary<AbilityData, float>();
+    [SerializeField]
+    protected BoonsPanel m_buffsPanel;
+    [SerializeField]
+    protected BoonsPanel m_debuffsPanel;
 
     private void Start()
     {
@@ -85,7 +89,7 @@ public class BaseCharacter : MonoBehaviour
     {
         if (abilityData.AbilityType == EAbilityType.Passive)
         {
-            m_buffsList.Add(abilityData, -1.0f);
+            GainBuff(abilityData);
         }
     }
 
@@ -93,8 +97,29 @@ public class BaseCharacter : MonoBehaviour
     {
         if (m_buffsList.ContainsKey(abilityData))
         {
-            m_buffsList.Remove(abilityData);
+            RemoveBuff(abilityData);
         }
+    }
+
+    protected void GainBuff(AbilityData abilityData, int stacks = 1)
+    {
+        m_buffsList.Add(abilityData, -1.0f);
+        m_buffsPanel.SetBoon(abilityData, stacks);
+    }
+
+    protected void RemoveBuff(AbilityData abilityData)
+    {
+        if (m_buffsList.ContainsKey(abilityData))
+        {
+            m_buffsList.Remove(abilityData);
+            m_buffsPanel.RemoveBoon(abilityData);
+        }
+    }
+
+    protected void GainDebuff(AbilityData abilityData, int stacks = 1)
+    {
+        m_debuffsList.Add(abilityData, -1.0f);
+        m_debuffsPanel.SetBoon(abilityData, stacks);
     }
 
     public void OnTickEvent()
