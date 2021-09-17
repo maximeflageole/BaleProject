@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BaseCharacter : MonoBehaviour
@@ -65,7 +66,7 @@ public class BaseCharacter : MonoBehaviour
         m_castingBar.OnEndCast();
     }
 
-    public void ReceiveDamage(BaseCharacter damageSource, int amount)
+    public void ReceiveDamage(BaseCharacter damageSource, float amount)
     {
         m_lifeComponent.RemoveResource(amount);
     }
@@ -116,35 +117,68 @@ public class BaseCharacter : MonoBehaviour
         }
     }
 
-    protected void GainDebuff(AbilityData abilityData, int stacks = 1)
+    public void GainDebuff(AbilityData abilityData, int stacks = 1, float duration = -1.0f)
     {
-        m_debuffsList.Add(abilityData, -1.0f);
+        m_debuffsList.Add(abilityData, duration);
         m_debuffsPanel.SetBoon(abilityData, stacks);
+    }
+
+    protected void RemoveDebuff(AbilityData abilityData)
+    {
+        if (m_debuffsList.ContainsKey(abilityData))
+        {
+            m_debuffsList.Remove(abilityData);
+            m_debuffsPanel.RemoveBoon(abilityData);
+        }
     }
 
     public void OnTickEvent()
     {
-        foreach (var buff in m_buffsList)
+        var buffsToRemove = new List<AbilityData>();
+        var buffKeys = m_buffsList.Keys.ToArray();
+
+        foreach (var buffKey in buffKeys)
         {
-            if (buff.Key.AbilityType == EAbilityType.Passive)
+            if (buffKey.AbilityType == EAbilityType.Passive)
             {
-                ApplyOnTickAbility(buff.Key);
+                ApplyOnTickAbility(buffKey);
             }
             else
             {
-                //TODO: buff.Value -= GameManager.TICK_RATE;
+                ApplyOnTickAbility(buffKey);
+                m_buffsList[buffKey] -= GameManager.TICK_RATE;
+                if (m_buffsList[buffKey] <= 0.0f)
+                {
+                    buffsToRemove.Add(buffKey);
+                }
             }
         }
-        foreach (var debuff in m_debuffsList)
+        foreach (var buffToRemove in buffsToRemove)
         {
-            if (debuff.Key.AbilityType == EAbilityType.Passive)
+            RemoveBuff(buffToRemove);
+        }
+
+        var debuffsToRemove = new List<AbilityData>();
+        var debuffKeys = m_debuffsList.Keys.ToArray();
+        foreach (var debuffKey in debuffKeys)
+        {
+            if (debuffKey.AbilityType == EAbilityType.Passive)
             {
-                ApplyOnTickAbility(debuff.Key);
+                ApplyOnTickAbility(debuffKey);
             }
-            else
+            else if (debuffKey.AbilityType == EAbilityType.Active)
             {
-                //TODO: buff.Value -= GameManager.TICK_RATE;
+                ApplyOnTickAbility(debuffKey);
+                m_debuffsList[debuffKey] -= GameManager.TICK_RATE;
+                if (m_debuffsList[debuffKey] <= 0.0f)
+                {
+                    debuffsToRemove.Add(debuffKey);
+                }
             }
+        }
+        foreach (var debuffToRemove in debuffsToRemove)
+        {
+            RemoveDebuff(debuffToRemove);
         }
     }
 
@@ -165,6 +199,9 @@ public class BaseCharacter : MonoBehaviour
                 break;
             case EAbilityEffect.ManaRegenBuff:
                 GainMana(effect.Magnitude * GameManager.TICK_RATE);
+                break;
+            case EAbilityEffect.BleedDebuff:
+                ReceiveDamage(this, (float)effect.Magnitude * GameManager.TICK_RATE);
                 break;
         }
     }

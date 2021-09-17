@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e6304d8fbdf8494dba97a6d0f38b4e9, type: 3}
+  m_Name: SevereArtery
+  m_EditorClassIdentifier: 
+  Ability: 10
+  AbilityType: 0
+  ManaCost: 10
+  Sprite: {fileID: 21300000, guid: 45add87f86b311c40ade86bd0acb10e1, type: 3}
+  Cooldown: 3
+  CastingTime: 0.5
+  AbilityEffects:
+  - Effect: 6
+    Targets: 1
+    Magnitude: 5
+    Duration: 5

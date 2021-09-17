@@ -6,11 +6,11 @@ public class AbilitySystem
     {
         foreach (var effect in data.AbilityEffects)
         {
-            CastEffect(castingCharacter, effect);
+            CastEffect(castingCharacter, data, effect);
         }
     }
 
-    public static void CastEffect(BaseCharacter castingCharacter, SAbilityEffect effect)
+    public static void CastEffect(BaseCharacter castingCharacter, AbilityData data, SAbilityEffect effect)
     {
         var targetList = GameManager._Instance.GetAbilityEffectTarget(castingCharacter, effect);
 
@@ -26,10 +26,16 @@ public class AbilitySystem
                 break;
             case EAbilityEffect.GainMana:
                 break;
+            case EAbilityEffect.BleedDebuff:
+                foreach (var target in targetList)
+                {
+                    target.GainDebuff(data, 1, effect.Duration);
+                }
+                break;
         }
     }
 
-    public static void DamageCharacters(BaseCharacter damagingCharacter, List<BaseCharacter> targets, int amount)
+    public static void DamageCharacters(BaseCharacter damagingCharacter, List<BaseCharacter> targets, float amount)
     {
         if (targets.Count == 0)
             return;
@@ -39,7 +45,7 @@ public class AbilitySystem
         }
     }
 
-    public static void HealCharacters(List<BaseCharacter> targets, int amount)
+    public static void HealCharacters(List<BaseCharacter> targets, float amount)
     {
         foreach (var character in targets)
         {
@@ -65,6 +71,7 @@ public enum EAbilityEffect
     GainMana,
     ManaRegenBuff,
     HealthRegenBuff,
+    BleedDebuff,
     Count
 }
 

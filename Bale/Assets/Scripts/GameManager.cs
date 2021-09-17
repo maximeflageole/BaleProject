@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     private void OnTickEvent()
     {
         m_playerCharacter.OnTickEvent();
+        m_enemy.OnTickEvent();
     }
 
     public BaseCharacter GetFacingEnemy(BaseCharacter character)

@@ -415,7 +415,7 @@ MonoBehaviour:
   m_fontSize: 42
   m_fontSizeBase: 42
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
@@ -428,7 +428,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -902,10 +902,10 @@ RectTransform:
   m_Father: {fileID: 4799461877285210045}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.5, y: -3.5}
-  m_SizeDelta: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6729238933334389870
 CanvasRenderer:
@@ -7864,10 +7864,10 @@ RectTransform:
   m_Father: {fileID: 5846122785910556260}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 9.5, y: -0.5}
-  m_SizeDelta: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1955052693082581578
 CanvasRenderer:
@@ -8118,12 +8118,12 @@ MonoBehaviour:
   m_manaComponent: {fileID: 7354184418741459505}
   m_castingBar: {fileID: 885941695}
   m_abilitiesList:
-  - {fileID: 11400000, guid: f6174ca658a411543acf075233573696, type: 2}
   - {fileID: 11400000, guid: 86338a7c6254b9e4f9770d922e37b7a8, type: 2}
+  - {fileID: 11400000, guid: f6174ca658a411543acf075233573696, type: 2}
   - {fileID: 11400000, guid: 179d746a5a6f1ad4aa66f09b2f28fada, type: 2}
   - {fileID: 11400000, guid: e680fbdf0a9243b46865b1a42149ad71, type: 2}
   - {fileID: 11400000, guid: 3a398e8ebd3a5db4da5c9a2de4955cf1, type: 2}
-  - {fileID: 11400000, guid: fed11cb4123637848a45b5c19868acf5, type: 2}
+  - {fileID: 11400000, guid: ed1edeb5d669b2946a7843251eece987, type: 2}
   - {fileID: 11400000, guid: e4dd2a17b3c6da449b96152e76299623, type: 2}
   - {fileID: 11400000, guid: 0f5191cee5227004585818db86dc1d6c, type: 2}
   m_equippedAbilities: {fileID: 0}

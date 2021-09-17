@@ -25,6 +25,7 @@ public enum EAbility
     Suicide,
     ManaSignet,
     HealthSignet,
+    SevereArtery,
     Count
 }
 
