@@ -27,6 +27,7 @@ public enum EAbility
     ManaSignet,
     HealthSignet,
     SevereArtery,
+    LowDamage,
     Count
 }
 

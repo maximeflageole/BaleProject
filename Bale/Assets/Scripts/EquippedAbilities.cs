@@ -1,36 +1,41 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class EquippedAbilities : MonoBehaviour
 {
     [SerializeField]
     protected BaseCharacter m_owner;
-    protected List<AbilityButton> m_abilitiesButtons = new List<AbilityButton>();
-    [SerializeField]
-    protected List<string> m_buttonsShortcuts = new List<string>();
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        var abilitiesButtons = GetComponentsInChildren<AbilityButton>();
-        m_abilitiesButtons = abilitiesButtons.ToList();
-        for (var i = 0; i < m_abilitiesButtons.Count; i++)
-        {
-            m_abilitiesButtons[i].InstantiateButtonShortcut(m_buttonsShortcuts[i], m_owner);
-        }
-    }
+    public List<AbilitySlot> AbilitiesList { get; protected set; } = new List<AbilitySlot>();
 
     public void InstantiateAbilities(List<AbilityData> abilitiesData)
     {
-        var abilitiesButtons = GetComponentsInChildren<AbilityButton>();
-        m_abilitiesButtons = abilitiesButtons.ToList();
+        AbilitiesList.Clear();
+        var abilitiesSlots = GetComponentsInChildren<AbilitySlot>();
 
-        for (var i = 0; i < m_abilitiesButtons.Count || i < abilitiesData.Count; i++)
+        var i = 0;
+        foreach (var slot in abilitiesSlots)
         {
-            var abilityData = abilitiesData[i];
-            m_abilitiesButtons[i].SetAbilityData(abilityData);
-            m_owner.OnEquipAbility(abilityData);
+            if (i >= abilitiesData.Count)
+            {
+                return;
+            }
+            AbilitiesList.Add(slot);
+            var btn = slot.GetComponent<AbilityButton>();
+            if (btn != null)
+            {
+                btn.InstantiateButton(i.ToString(), m_owner);
+            }
+            else
+            {
+                slot.InstantiateSlot(m_owner);
+            }
+            abilitiesSlots[i].SetAbilityData(abilitiesData[i]);
+            i++;
         }
+    }
+
+    public void CastDefaultAbility()
+    {
+        m_owner.OnTryCast(AbilitiesList[0]);
     }
 }

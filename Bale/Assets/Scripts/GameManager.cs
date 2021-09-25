@@ -7,10 +7,10 @@ public class GameManager : MonoBehaviour
     public const float TICK_RATE = 0.25f;
     public static float CURRENT_TICK = 0.0f;
 
-    [SerializeField]
-    private BaseCharacter m_playerCharacter;
-    [SerializeField]
-    private BaseCharacter m_enemy;
+    [field:SerializeField]
+    public BaseCharacter PlayerCharacter { get; protected set; }
+    [field:SerializeField]
+    public List<BaseCharacter> EnemiesList { get; protected set; }
 
     private void Awake()
     {
@@ -36,17 +36,20 @@ public class GameManager : MonoBehaviour
 
     private void OnTickEvent()
     {
-        m_playerCharacter.OnTickEvent();
-        m_enemy.OnTickEvent();
+        PlayerCharacter.OnTickEvent();
+        foreach (var enemy in EnemiesList)
+        {
+            enemy.OnTickEvent();
+        }
     }
 
     public BaseCharacter GetFacingEnemy(BaseCharacter character)
     {
-        if (character == m_playerCharacter)
+        if (character == PlayerCharacter)
         {
-            return m_enemy;
+            return EnemiesList[0];
         }
-        return m_playerCharacter;
+        return PlayerCharacter;
     }
 
     public List<BaseCharacter> GetAbilityEffectTarget(BaseCharacter castingCharacter, SAbilityEffect effect)

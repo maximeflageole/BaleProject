@@ -13,9 +13,10 @@ public class BaseCharacter : MonoBehaviour
     protected CastingBarUI m_castingBar;
     [SerializeField]
     protected List<AbilityData> m_abilitiesList = new List<AbilityData>();
+    protected Dictionary<AbilitySlot, AbilityData> m_abilitiesDictionary = new Dictionary<AbilitySlot, AbilityData>();
     [SerializeField]
     protected EquippedAbilities m_equippedAbilities;
-    protected AbilityButton m_currentAbilityCast;
+    protected AbilitySlot m_currentAbilitySlot;
     [SerializeField]
     protected Dictionary<AbilityData, float> m_buffsList = new Dictionary<AbilityData, float>();
     [SerializeField]
@@ -25,44 +26,44 @@ public class BaseCharacter : MonoBehaviour
     [SerializeField]
     protected BoonsPanel m_debuffsPanel;
 
-    private void Start()
+    protected void Start()
     {
         m_lifeComponent.m_resourceEmptyCallback += OnHealthEmpty;
         m_equippedAbilities?.InstantiateAbilities(m_abilitiesList);
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (IsCasting)
         {
-            m_castingBar.UpdateUI(m_currentAbilityCast.CurrentCast, m_currentAbilityCast.Data.CastingTime);
+            m_castingBar.UpdateUI(m_currentAbilitySlot.CurrentCast, m_currentAbilitySlot.Data.CastingTime);
         }
     }
 
-    public void OnTryCast(AbilityButton abilityButton)
+    public void OnTryCast(AbilitySlot abilitySlot)
     {
-        if (!CanCast(abilityButton))
+        if (!CanCast(abilitySlot))
         {
             return;
         }
-        m_manaComponent.RemoveResource(abilityButton.Data.ManaCost);
+        m_manaComponent?.RemoveResource(abilitySlot.Data.ManaCost);
         IsCasting = true;
-        abilityButton.BeginCast();
-        m_currentAbilityCast = abilityButton;
-        m_castingBar.OnBeginCast(abilityButton.Data.AbilityType.ToString(), abilityButton.Data.Sprite);
+        m_currentAbilitySlot = abilitySlot;
+        abilitySlot.BeginCast();
+        m_castingBar.OnBeginCast(abilitySlot.Data.AbilityType.ToString(), abilitySlot.Data.Sprite);
     }
 
-    protected bool CanCast(AbilityButton ability)
+    protected virtual bool CanCast(AbilitySlot abilitySlot)
     {
-        return !ability.InCooldown && !IsCasting && m_manaComponent.CurrentValue >= ability.Data.ManaCost && ability.Data.AbilityType == EAbilityType.Active;
+        return !abilitySlot.InCooldown && !IsCasting && m_manaComponent.CurrentValue >= abilitySlot.Data.ManaCost && abilitySlot.Data.AbilityType == EAbilityType.Active;
     }
 
     public void OnEndCast()
     {
-        AbilitySystem.CastAbility(this, m_currentAbilityCast.Data);
+        AbilitySystem.CastAbility(this, m_currentAbilitySlot.Data);
 
         IsCasting = false;
-        m_currentAbilityCast = null;
+        m_currentAbilitySlot = null;
         m_castingBar.OnEndCast();
     }
 
